@@ -2,7 +2,9 @@ import { getPublishedProducts, getSettings } from "@/lib/db";
 import ProductsExplorer from "@/components/ProductsExplorer";
 import SectionHeading from "@/components/SectionHeading";
 
+// ดึงข้อมูลสินค้าจาก Supabase ตรงๆ ทุกครั้ง ไม่ cache เด็ดขาด (ดู lib/supabase.js)
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata = {
   title: "สินค้าทั้งหมด | Meijiiya",

@@ -2,7 +2,9 @@ import { getPublishedProducts, getSettings } from "@/lib/db";
 import { CATEGORY_RECOMMENDED } from "@/lib/constants";
 import SimpleProductGrid from "@/components/SimpleProductGrid";
 
+// ดึงข้อมูลสินค้าจาก Supabase ตรงๆ ทุกครั้ง ไม่ cache เด็ดขาด (ดู lib/supabase.js)
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata = {
   title: "สินค้าแนะนำ | Meijiiya",

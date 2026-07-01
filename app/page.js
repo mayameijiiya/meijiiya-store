@@ -6,8 +6,11 @@ import LineButton from "@/components/LineButton";
 import SectionHeading from "@/components/SectionHeading";
 import NoticeBox from "@/components/NoticeBox";
 
-// ข้อมูลสินค้าถูกอ่านจากไฟล์ทุกครั้งที่มีคนเข้าเว็บ เพื่อให้เห็นการเปลี่ยนแปลงจากหน้า Admin ทันที
+// ข้อมูลสินค้าถูกดึงจาก Supabase ตรงๆ ทุกครั้งที่มีคนเข้าเว็บ เพื่อให้เห็นสินค้าที่เพิ่ง
+// เพิ่ม/แก้จากหน้า Admin ทันที — ปิดทุกชั้นการ cache ของ Next.js อย่างชัดเจน (ดู lib/supabase.js
+// สำหรับการปิด cache ของตัว fetch ที่ supabase-js ใช้ภายในด้วย)
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 // เมนูหมวดหมู่ด่วนบนหน้าแรก (หมวดหมู่แบบเต็มดูได้ที่หน้า /products)
 const HOME_CATEGORY_MENU = ["สินค้าใหม่", "สินค้าแนะนำ", "พร้อมส่ง", "เสื้อ", "เดรส", "กระเป๋า", "Sale"];

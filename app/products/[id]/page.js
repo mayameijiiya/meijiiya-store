@@ -8,7 +8,9 @@ import NoticeBox from "@/components/NoticeBox";
 import ProductCard from "@/components/ProductCard";
 import { buildOrderMessage } from "@/lib/line";
 
+// ดึงข้อมูลสินค้าจาก Supabase ตรงๆ ทุกครั้ง ไม่ cache เด็ดขาด (ดู lib/supabase.js)
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function ProductDetailPage({ params }) {
   const settings = getSettings();

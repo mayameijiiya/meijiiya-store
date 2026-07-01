@@ -7,7 +7,23 @@
 
 ---
 
-## 0.3) แก้ไขล่าสุด: ย้ายระบบอัปโหลดรูปสินค้าไปใช้ Supabase Storage
+## 0.4) แก้ไขล่าสุด: หน้าเว็บจริงไม่แสดงสินค้าใหม่ (ทั้งที่บันทึกเข้า Supabase สำเร็จแล้ว)
+
+**สาเหตุ:** Next.js App Router มี "Data Cache" ที่แอบ cache ผลลัพธ์ของ `fetch()` ทุกตัวโดยอัตโนมัติ รวมถึง fetch ที่ `@supabase/supabase-js` เรียกใช้ภายในตอน query ตาราง `products` ด้วย แม้แต่ละหน้าจะมี `export const dynamic = "force-dynamic"` อยู่แล้วก็ตาม ทำให้บางครั้งหน้าเว็บยังแสดงข้อมูลชุดเก่าอยู่หลังเพิ่ม/แก้สินค้าใหม่
+
+**สิ่งที่แก้:**
+
+| ไฟล์ | การเปลี่ยนแปลง |
+|---|---|
+| `lib/supabase.js` | เพิ่ม custom fetch (`noStoreFetch`) ที่บังคับ `cache: "no-store"` ให้กับทั้ง `supabaseAdmin` และ `supabasePublic` ผ่าน option `global.fetch` — การันตีว่าทุก query จาก Supabase จะไม่ถูก cache โดย Next.js Data Cache เด็ดขาด |
+| `app/page.js`, `app/products/page.js`, `app/products/[id]/page.js`, `app/new-arrivals/page.js`, `app/recommended/page.js`, `app/sale/page.js` | เพิ่ม `export const revalidate = 0` เสริมจาก `dynamic = "force-dynamic"` เดิม เพื่อยืนยันชัดเจนว่าไม่มีการ cache หน้าเหล่านี้เลย |
+| `lib/db.js` | ปรับ `getPublishedProducts()` ให้เงื่อนไขชัดเจนขึ้น: แสดงสินค้าทุกตัวที่ `published === true`, `null`, หรือ `undefined` — ซ่อนเฉพาะตัวที่ `published === false` เท่านั้น (ตรรกะเดิมถูกต้องอยู่แล้ว แต่เขียนให้ชัดเจนไม่กำกวม) |
+
+Product CRUD และหน้าเว็บทั้ง 6 หน้า (Home, Products, Product Detail, New Arrivals, Recommended, Sale) อ่านข้อมูลจากตาราง Supabase `products` โดยตรงทั้งหมด — ไม่มีการ fallback ไป `data/products.json` บน production/Vercel (ดู `useLocalProductsFallback` ใน `lib/db.js`)
+
+---
+
+## 0.3) ย้ายระบบอัปโหลดรูปสินค้าไปใช้ Supabase Storage
 
 **สาเหตุเดิม:** `app/api/upload/route.js` ยังเขียนไฟล์รูปลง `public/uploads/products` ด้วย `fs.writeFileSync` ซึ่งใช้ไม่ได้บน Vercel (read-only filesystem) ทำให้อัปโหลดรูปจริงไม่สำเร็จตอน production
 
