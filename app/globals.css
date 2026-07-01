@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F7F3EC;
+  color: #1C1C1C;
+}
+
+/* เส้นขอบบางๆ แบบแบรนด์ Meijiiya */
+.brand-border {
+  border: 1px solid #E5DED3;
+}
+
+.container-brand {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container-brand {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 bg-ink text-white px-6 py-3.5 text-sm tracking-wide2 uppercase transition-all duration-200 hover:bg-softblack active:scale-[0.98];
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 bg-transparent text-ink border border-ink px-6 py-3.5 text-sm tracking-wide2 uppercase transition-all duration-200 hover:bg-ink hover:text-white active:scale-[0.98];
+}
+
+.btn-gold-outline {
+  @apply inline-flex items-center justify-center gap-2 bg-transparent text-ink border border-gold px-6 py-3.5 text-sm tracking-wide2 uppercase transition-all duration-200 hover:bg-gold hover:text-white active:scale-[0.98];
+}
+
+.btn-line {
+  @apply inline-flex items-center justify-center gap-2 bg-line text-white px-6 py-3.5 text-sm font-medium tracking-wide transition-all duration-200 shadow-soft hover:brightness-105 hover:shadow-md active:scale-[0.98] rounded-full;
+}
+
+.input-base {
+  @apply w-full brand-border bg-white px-4 py-2.5 text-sm text-ink transition-colors focus:outline-none focus:ring-1 focus:ring-gold focus:border-gold;
+}
+
+.card-surface {
+  @apply bg-card brand-border rounded-xl2 shadow-soft;
+}
+
+.eyebrow-gold {
+  @apply text-xs tracking-wide3 uppercase text-gold;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

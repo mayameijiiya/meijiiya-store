@@ -1,0 +1,44 @@
+{
+  "shopNameEn": "Meijiiya",
+  "shopNameTh": "เมจิยา",
+  "tagline": "Minimal Fashion, Everyday Look",
+  "shortIntro": "เสื้อผ้าแฟชั่นคัดมาแล้ว ใส่ง่าย แมตช์ง่าย ดูดีในทุกวัน พร้อมส่ง ส่งฟรีทุกออเดอร์",
+  "aboutText": "Meijiiya คือร้านเสื้อผ้าออนไลน์สไตล์มินิมอล คัดเลือกสินค้าที่ใส่ง่าย แมตช์ง่าย และเหมาะกับ everyday look ลูกค้าสามารถเลือกสินค้าจากหน้าเว็บไซต์ แคปรูป แล้วส่งมาสั่งซื้อทาง LINE ได้ทันที ส่งฟรีทุกออเดอร์",
+
+  "_comment_line": "แก้ลิงก์ LINE Official Account ของร้านตรงนี้ (ค่าเริ่มต้นคือลิงก์จริงของ Meijiiya แล้ว)",
+  "lineLink": "https://lin.ee/wDd89mZ",
+
+  "_comment_socials": "ช่องทางอื่นยังเป็น placeholder ให้แก้เป็นลิงก์จริงของร้านทีหลัง (แก้ได้ที่หน้า Admin > ตั้งค่าร้าน หรือแก้ไฟล์นี้ตรงๆ)",
+  "socials": {
+    "tiktok": "https://www.tiktok.com/@yourusername",
+    "facebook": "https://www.facebook.com/yourpage",
+    "instagram": "https://www.instagram.com/yourusername",
+    "shopee": "https://shopee.co.th/yourshop",
+    "lemon8": "https://www.lemon8-app.com/yourusername",
+    "youtube": "https://www.youtube.com/@yourchannel",
+    "email": "yourbrand@email.com",
+    "phone": "08X-XXX-XXXX"
+  },
+
+  "shippingText": "จัดส่งผ่านขนส่ง Shopee ส่งฟรีทุกออเดอร์ ไม่มีขั้นต่ำ",
+  "footerNote": "Meijiiya / เมจิยา — แคปรูปสินค้าแล้วสั่งซื้อผ่าน LINE จัดส่งผ่านขนส่ง Shopee ส่งฟรีทุกออเดอร์",
+
+  "howToOrderSteps": [
+    "เลือกสินค้าที่ต้องการจากหน้าเว็บไซต์",
+    "แคปรูปสินค้าที่ต้องการ",
+    "กดปุ่ม LINE แล้วส่งรูปมาที่ร้าน",
+    "แจ้งสี ไซซ์ และจำนวนที่ต้องการ",
+    "รอร้านเช็กสินค้าและคอนเฟิร์มยอด",
+    "ชำระเงินตามช่องทางที่ร้านแจ้งในแชท",
+    "ร้านจัดส่งสินค้าให้ผ่านขนส่ง Shopee",
+    "รอรับสินค้าได้เลย"
+  ],
+
+  "noOnlinePaymentNotice": "เว็บไซต์นี้ไม่มีระบบตะกร้าสินค้าหรือชำระเงินอัตโนมัติ ลูกค้าสามารถแคปรูปสินค้าที่ต้องการ แล้วส่งมาที่ LINE ร้านเพื่อให้ร้านเช็กสินค้าและคอนเฟิร์มยอดก่อนชำระเงิน สินค้าจัดส่งผ่านขนส่ง Shopee และส่งฟรีทุกออเดอร์",
+
+  "_comment_admin": "รหัสผ่านสำหรับเข้าหน้า Admin Dashboard — แนะนำให้แก้เป็นรหัสของตัวเองก่อนใช้งานจริง",
+  "adminPassword": "meijiiya2026",
+
+  "_comment_logo": "ถ้ามีไฟล์โลโก้ ให้อัปโหลดไฟล์ภาพชื่อ logo.png ไปไว้ที่โฟลเดอร์ public/ แล้วใส่ path ตรงนี้ เช่น \"/logo.png\" ถ้าปล่อยว่างไว้ เว็บจะแสดงชื่อร้านเป็นตัวอักษรแทนโลโก้",
+  "logoPath": ""
+}

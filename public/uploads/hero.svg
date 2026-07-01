@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111111"/>
+      <stop offset="1" stop-color="#2b2b2b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="40" y="40" width="1520" height="820" fill="none" stroke="#F8F5EF" stroke-opacity="0.25" stroke-width="1.5"/>
+  <text x="800" y="430" font-family="Helvetica, Arial, sans-serif" font-size="90" letter-spacing="10" fill="#F8F5EF" text-anchor="middle">MEIJIIYA</text>
+  <text x="800" y="480" font-family="Helvetica, Arial, sans-serif" font-size="24" letter-spacing="6" fill="#E8E0D2" text-anchor="middle">เมจิยา</text>
+  <text x="800" y="530" font-family="Helvetica, Arial, sans-serif" font-size="16" letter-spacing="2" fill="#B9B4A9" text-anchor="middle">แทนที่รูปนี้ด้วยภาพหน้าร้าน/นางแบบใส่สินค้าจริง ที่หน้า Admin หรือไฟล์ public/uploads/hero.svg</text>
+</svg>
