@@ -13,24 +13,28 @@ export default function ImageUploader({ images = [], onChange }) {
     setUploading(true);
     setError("");
 
-    const newPaths = [];
+    const newUrls = [];
+    let lastError = "";
     for (const file of files) {
       const formData = new FormData();
       formData.append("file", file);
       try {
         const res = await fetch("/api/upload", { method: "POST", body: formData });
-        const data = await res.json();
-        if (res.ok) {
-          newPaths.push(data.path);
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.url) {
+          newUrls.push(data.url);
         } else {
-          setError(data.error || "อัปโหลดรูปไม่สำเร็จ");
+          lastError = data.error || "อัปโหลดรูปไม่สำเร็จ";
         }
       } catch (err) {
-        setError("อัปโหลดรูปไม่สำเร็จ กรุณาลองใหม่");
+        lastError = "อัปโหลดรูปไม่สำเร็จ กรุณาลองใหม่ (ตรวจสอบการเชื่อมต่ออินเทอร์เน็ต)";
       }
     }
 
-    onChange([...images, ...newPaths]);
+    if (newUrls.length > 0) {
+      onChange([...images, ...newUrls]);
+    }
+    if (lastError) setError(lastError);
     setUploading(false);
     if (inputRef.current) inputRef.current.value = "";
   }

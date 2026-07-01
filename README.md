@@ -7,7 +7,26 @@
 
 ---
 
-## 0.2) แก้ไขล่าสุด: ย้ายระบบสินค้าไปใช้ Supabase (แก้ 500 error ตอนบันทึกสินค้าบน Vercel)
+## 0.3) แก้ไขล่าสุด: ย้ายระบบอัปโหลดรูปสินค้าไปใช้ Supabase Storage
+
+**สาเหตุเดิม:** `app/api/upload/route.js` ยังเขียนไฟล์รูปลง `public/uploads/products` ด้วย `fs.writeFileSync` ซึ่งใช้ไม่ได้บน Vercel (read-only filesystem) ทำให้อัปโหลดรูปจริงไม่สำเร็จตอน production
+
+**สิ่งที่แก้:** เปลี่ยน `/api/upload` ให้อัปโหลดไฟล์ไป Supabase Storage bucket ชื่อ `product-images` โดยตรง (ผ่าน `supabaseAdmin.storage`, service role key) แล้วคืน public URL กลับมาให้หน้า Admin เก็บลงฟิลด์ `images` ของสินค้า — ไม่มีการเขียนไฟล์ลง filesystem ของ Vercel อีกต่อไป
+
+### ไฟล์ที่แก้/เพิ่มรอบนี้
+
+| ไฟล์ | การเปลี่ยนแปลง |
+|---|---|
+| `app/api/upload/route.js` | เขียนใหม่ทั้งไฟล์ — ลบโค้ด `fs`/`path`/`writeFileSync` ทั้งหมด เปลี่ยนเป็นอัปโหลดผ่าน `supabaseAdmin.storage.from("product-images").upload(...)` แล้ว `getPublicUrl(...)` คืนค่า `{ url, path }` (ทั้งสอง field เป็น public URL เดียวกัน) |
+| `lib/supabase.js` | เพิ่ม export `PRODUCT_IMAGES_BUCKET = "product-images"` |
+| `components/admin/ImageUploader.jsx` | อ่าน `data.url` จาก response แทน `data.path` เดิม, ปรับให้อัปโหลดหลายรูปแล้วรูปที่สำเร็จจะถูกเพิ่มเข้า form แม้บางรูปจะอัปโหลดไม่สำเร็จ (ไม่เสียรูปที่อัปโหลดสำเร็จไปด้วย) |
+| `supabase/storage.sql` (ใหม่) | SQL สร้าง bucket `product-images` แบบ public + policy อ่านสาธารณะ — **รัน manual ครั้งเดียวใน Supabase SQL Editor** (หรือสร้างผ่าน Dashboard > Storage ก็ได้ ดูคอมเมนต์ในไฟล์) |
+
+Product CRUD (`app/api/products/route.js`, `app/api/products/[id]/route.js`, `lib/db.js`) ตรวจสอบแล้วว่าใช้ตาราง Supabase `products` โดยตรงทั้งหมดอยู่แล้วตั้งแต่รอบที่แล้ว ไม่ต้องแก้เพิ่ม
+
+---
+
+## 0.2) ย้ายระบบสินค้าไปใช้ Supabase (แก้ 500 error ตอนบันทึกสินค้าบน Vercel)
 
 **สาเหตุเดิม:** ระบบสินค้าฉบับก่อนหน้าเก็บข้อมูลเป็นไฟล์ `data/products.json` บนดิสก์ ซึ่งใช้ไม่ได้บน Vercel (serverless filesystem เป็น read-only/ephemeral) ทำให้กดบันทึกสินค้าแล้วขึ้น 500
 
