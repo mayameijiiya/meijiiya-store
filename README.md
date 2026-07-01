@@ -3,7 +3,47 @@
 เว็บไซต์แสดงสินค้าแฟชั่นสไตล์มินิมอล ลูกค้าดูสินค้า แคปรูป แล้วสั่งซื้อผ่าน LINE (ไม่มีตะกร้าสินค้า ไม่มีระบบชำระเงินในเว็บ)
 เจ้าของร้านเพิ่ม/แก้ไข/ลบสินค้าและอัปโหลดรูปเองได้จากหน้า Admin Dashboard
 
-สร้างด้วย Next.js 14 (App Router) + Tailwind CSS เก็บข้อมูลสินค้า/ตั้งค่าร้านเป็นไฟล์ JSON (เหมาะสำหรับเวอร์ชันเริ่มต้น พร้อมต่อยอดเป็นฐานข้อมูลจริงภายหลัง)
+สร้างด้วย Next.js 14 (App Router) + Tailwind CSS **ข้อมูลสินค้าเก็บใน Supabase Postgres** (ตาราง `products`) ส่วนการตั้งค่าร้านยังเก็บเป็นไฟล์ `data/settings.json` เหมือนเดิม
+
+---
+
+## 0.2) แก้ไขล่าสุด: ย้ายระบบสินค้าไปใช้ Supabase (แก้ 500 error ตอนบันทึกสินค้าบน Vercel)
+
+**สาเหตุเดิม:** ระบบสินค้าฉบับก่อนหน้าเก็บข้อมูลเป็นไฟล์ `data/products.json` บนดิสก์ ซึ่งใช้ไม่ได้บน Vercel (serverless filesystem เป็น read-only/ephemeral) ทำให้กดบันทึกสินค้าแล้วขึ้น 500
+
+**สิ่งที่แก้:** ย้าย CRUD สินค้าทั้งหมด (อ่าน/เพิ่ม/แก้/ลบ) ไปคุยกับตาราง `products` บน Supabase โดยตรง ผ่าน `@supabase/supabase-js` — ไม่มีการเรียก migration หรืออ้างอิง `supabase_migrations.schema_migrations` ใดๆ ในโค้ดแอปเลย
+
+### ไฟล์ที่แก้/เพิ่มรอบนี้
+
+| ไฟล์ | การเปลี่ยนแปลง |
+|---|---|
+| `lib/supabase.js` (ใหม่) | สร้าง Supabase client 2 ตัว: `supabaseAdmin` (service role key, ใช้ query ตาราง products ทั้งหมดฝั่งเซิร์ฟเวอร์) และ `supabasePublic` (anon key, เผื่อใช้งานฝั่ง client ในอนาคต) |
+| `lib/db.js` | เขียนฟังก์ชันสินค้าใหม่ทั้งหมดให้เป็น `async` และ query Supabase แทนไฟล์ JSON (`getAllProducts`, `getPublishedProducts`, `getProductById`, `createProduct`, `updateProduct`, `deleteProduct`) มี mapping ระหว่างคอลัมน์ `snake_case` ของ Supabase กับ field `camelCase` ที่โค้ดหน้าเว็บใช้อยู่เดิม (ไม่ต้องแก้ ProductCard/ProductForm ฯลฯ เลย) ฟังก์ชันตั้งค่าร้าน (`getSettings`/`updateSettings`) **ไม่ได้แก้** ยังเป็นไฟล์ JSON เหมือนเดิม |
+| `app/api/products/route.js`, `app/api/products/[id]/route.js` | เพิ่ม `await` และ `try/catch` ครอบการเรียก Supabase คืน error เป็น JSON 500 พร้อมข้อความที่อ่านรู้เรื่อง แทนที่จะปล่อยให้ process ล้ม |
+| `app/page.js`, `app/products/page.js`, `app/products/[id]/page.js`, `app/new-arrivals/page.js`, `app/recommended/page.js`, `app/sale/page.js`, `app/admin/products/[id]/edit/page.js` | แปลงเป็น async Server Component + `await` การดึงข้อมูลสินค้า พร้อมข้อความ error ที่เป็นมิตรถ้าดึงข้อมูลไม่สำเร็จ (หน้าเว็บไม่ล่มทั้งหน้า) |
+| `supabase/schema.sql` (ใหม่) | คำสั่ง SQL สร้างตาราง `products` — **รัน manual ครั้งเดียวใน Supabase SQL Editor เท่านั้น** ไม่ถูกเรียกจากแอป |
+| `scripts/seed-supabase.js` (ใหม่) | สคริปต์นำเข้าข้อมูลจาก `data/products.json` เดิมไปยัง Supabase — รัน manual ครั้งเดียวด้วย `npm run seed:supabase` |
+| `.env.local.example` (ใหม่) | ตัวอย่างไฟล์ env สำหรับรันบนเครื่อง |
+| `package.json` | เพิ่ม dependency `@supabase/supabase-js` และ script `seed:supabase` |
+
+### ต้องทำก่อนใช้งานจริง (ทำครั้งเดียว)
+
+1. เปิด Supabase Dashboard > SQL Editor แล้วรันคำสั่งทั้งหมดในไฟล์ `supabase/schema.sql`
+2. ตั้งค่า Environment Variables ทั้งบน Vercel (Project Settings > Environment Variables) และในเครื่อง (`.env.local` จากตัวอย่าง `.env.local.example`):
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY` (**ห้าม** ตั้งด้วย prefix `NEXT_PUBLIC_` และห้ามใส่ในโค้ดฝั่ง client เด็ดขาด)
+3. (ถ้ามีสินค้าเดิมอยากย้ายเข้า Supabase) รัน `npm run seed:supabase` จากเครื่องตัวเอง — สคริปต์นี้จะอ่าน `data/products.json` แล้ว upsert เข้าตาราง `products` ให้ครบ
+4. Deploy ใหม่บน Vercel (redeploy) ให้ environment variables มีผล
+
+### ความปลอดภัยของ Service Role Key
+
+`SUPABASE_SERVICE_ROLE_KEY` ถูกใช้เฉพาะใน `lib/supabase.js` ซึ่งถูก import จาก `lib/db.js` และไฟล์ API route ภายใต้ `app/api/**` เท่านั้น (โค้ดฝั่งเซิร์ฟเวอร์ล้วน ไม่มี `"use client"` ไฟล์ไหน import ไฟล์นี้) Next.js จะไม่ bundle environment variable ที่ไม่มี prefix `NEXT_PUBLIC_` ลงไปในโค้ดฝั่ง browser อยู่แล้ว จึงมั่นใจได้ว่า key นี้ไม่หลุดไปฝั่ง client
+
+### สิ่งที่ยังไม่ได้แก้ในรอบนี้ (นอกสโคปคำขอ แต่ควรทราบไว้)
+
+- **การตั้งค่าร้าน** (`data/settings.json` — ลิงก์ LINE/โซเชียล/ข้อความหน้าเว็บ) ยังเป็นไฟล์ JSON เหมือนเดิม การแก้ผ่านหน้า Admin > ตั้งค่าร้าน จะ**ไม่ persist ถาวรบน Vercel** เช่นกัน (เหตุผลเดียวกับที่สินค้าเคยมีปัญหา) ถ้าต้องการให้บันทึกถาวรบน Vercel ด้วย แจ้งได้ จะย้ายไป Supabase ให้ในลักษณะเดียวกัน
+- **การอัปโหลดรูปสินค้า** (`app/api/upload/route.js`) ยังเขียนไฟล์ลง `public/uploads/` ซึ่งใช้ไม่ได้บน Vercel เช่นกัน (serverless filesystem ไม่ถาวร) ควรย้ายไปใช้ Supabase Storage หรือบริการเก็บไฟล์อื่น เช่น Cloudinary — ยังไม่ได้แก้ในรอบนี้เพราะโจทย์ระบุเฉพาะ API สินค้า (CRUD) เท่านั้น
 
 ---
 
@@ -52,10 +92,11 @@
 
 ## 1) วิธีติดตั้งและรันเว็บไซต์
 
-ต้องมี [Node.js](https://nodejs.org) เวอร์ชัน 18 ขึ้นไปในเครื่อง
+ต้องมี [Node.js](https://nodejs.org) เวอร์ชัน 18 ขึ้นไปในเครื่อง และโปรเจกต์ Supabase ที่รันไฟล์ `supabase/schema.sql` แล้ว (ดูหัวข้อ 0.2 ด้านบน)
 
 ```bash
 cd meijiiya-store
+cp .env.local.example .env.local   # แล้วใส่ค่า Supabase จริงในไฟล์นี้
 npm install
 npm run dev
 ```

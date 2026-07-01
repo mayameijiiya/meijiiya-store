@@ -8,11 +8,16 @@ export const metadata = {
   title: "สินค้าแนะนำ | Meijiiya",
 };
 
-export default function RecommendedPage() {
+export default async function RecommendedPage() {
   const settings = getSettings();
-  const products = getPublishedProducts().filter(
-    (p) => p.featured || p.categories?.includes(CATEGORY_RECOMMENDED)
-  );
+
+  let products = [];
+  try {
+    const all = await getPublishedProducts();
+    products = all.filter((p) => p.featured || p.categories?.includes(CATEGORY_RECOMMENDED));
+  } catch (err) {
+    console.error("[RecommendedPage] getPublishedProducts failed:", err);
+  }
 
   return (
     <SimpleProductGrid

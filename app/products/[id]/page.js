@@ -10,9 +10,16 @@ import { buildOrderMessage } from "@/lib/line";
 
 export const dynamic = "force-dynamic";
 
-export default function ProductDetailPage({ params }) {
-  const product = getProductById(params.id);
+export default async function ProductDetailPage({ params }) {
   const settings = getSettings();
+
+  let product;
+  try {
+    product = await getProductById(params.id);
+  } catch (err) {
+    console.error("[ProductDetailPage] getProductById failed:", err);
+    throw new Error("ไม่สามารถโหลดข้อมูลสินค้าได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง");
+  }
 
   if (!product || product.published === false) {
     notFound();
@@ -22,9 +29,15 @@ export default function ProductDetailPage({ params }) {
   const hasSale = Boolean(product.originalPrice) && Number(product.originalPrice) > Number(product.price);
   const categories = product.categories?.length ? product.categories : product.category ? [product.category] : [];
 
-  const related = getPublishedProducts()
-    .filter((p) => p.id !== product.id && p.categories?.some((c) => categories.includes(c)))
-    .slice(0, 4);
+  let related = [];
+  try {
+    const published = await getPublishedProducts();
+    related = published
+      .filter((p) => p.id !== product.id && p.categories?.some((c) => categories.includes(c)))
+      .slice(0, 4);
+  } catch (err) {
+    console.error("[ProductDetailPage] getPublishedProducts (related) failed:", err);
+  }
 
   return (
     <div className="container-brand py-12">

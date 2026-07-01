@@ -7,11 +7,16 @@ export const metadata = {
   title: "สินค้าใหม่ล่าสุด | Meijiiya",
 };
 
-export default function NewArrivalsPage() {
+export default async function NewArrivalsPage() {
   const settings = getSettings();
-  const products = [...getPublishedProducts()]
-    .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
-    .slice(0, 8);
+
+  let products = [];
+  try {
+    const all = await getPublishedProducts();
+    products = [...all].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, 8);
+  } catch (err) {
+    console.error("[NewArrivalsPage] getPublishedProducts failed:", err);
+  }
 
   return (
     <SimpleProductGrid

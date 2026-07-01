@@ -4,8 +4,24 @@ import { CATEGORIES } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
-export default function EditProductPage({ params }) {
-  const product = getProductById(params.id);
+export default async function EditProductPage({ params }) {
+  let product;
+  let loadError = null;
+  try {
+    product = await getProductById(params.id);
+  } catch (err) {
+    console.error("[EditProductPage] getProductById failed:", err);
+    loadError = "ไม่สามารถโหลดข้อมูลสินค้าได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง";
+  }
+
+  if (loadError) {
+    return (
+      <div>
+        <h1 className="text-xl text-ink mb-2">เกิดข้อผิดพลาด</h1>
+        <p className="text-sm text-red-600">{loadError}</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (

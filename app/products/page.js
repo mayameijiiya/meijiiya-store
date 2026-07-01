@@ -8,9 +8,17 @@ export const metadata = {
   title: "สินค้าทั้งหมด | Meijiiya",
 };
 
-export default function ProductsPage({ searchParams }) {
-  const products = getPublishedProducts();
+export default async function ProductsPage({ searchParams }) {
   const settings = getSettings();
+
+  let products = [];
+  let loadError = null;
+  try {
+    products = await getPublishedProducts();
+  } catch (err) {
+    console.error("[ProductsPage] getPublishedProducts failed:", err);
+    loadError = "ไม่สามารถโหลดข้อมูลสินค้าได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง";
+  }
 
   return (
     <div className="container-brand py-14">
@@ -22,11 +30,15 @@ export default function ProductsPage({ searchParams }) {
         title="สินค้าทั้งหมด"
         subtitle="ชอบตัวไหน แคปไว้แล้วทัก LINE ได้เลยค่ะ"
       />
-      <ProductsExplorer
-        products={products}
-        lineLink={settings.lineLink}
-        initialCategory={searchParams?.category || ""}
-      />
+      {loadError ? (
+        <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl2">{loadError}</div>
+      ) : (
+        <ProductsExplorer
+          products={products}
+          lineLink={settings.lineLink}
+          initialCategory={searchParams?.category || ""}
+        />
+      )}
     </div>
   );
 }

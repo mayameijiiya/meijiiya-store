@@ -1,8 +1,8 @@
 [
   {
     "id": "1001",
-    "name": "Cintage Catty คาร์ดิแกนฮู้ดcatty",
-    "brand": "cintage",
+    "name": "Everyday Muse Top",
+    "brand": "",
     "category": "เสื้อ",
     "categories": [
       "เสื้อ",
@@ -11,9 +11,9 @@
       "สินค้าใหม่",
       "มือหนึ่ง"
     ],
-    "price": 539,
-    "originalPrice": 0,
-    "status": "reserved",
+    "price": 390,
+    "originalPrice": "",
+    "status": "available",
     "condition": "New",
     "tags": [
       "New",
@@ -21,22 +21,377 @@
     ],
     "featured": true,
     "published": true,
-    "shortDescription": "",
-    "description": "shop  :  650 baht\nHoodie หูแมว ซิปคู่หัวใจนะค้า ผ้า fleece อย่างดี บุซับซาติน ใส่สบายมากใส่แล้วไม่ร้อน กันหนาวได้ดี\n\n🧼วิธีการดูแลเสื้อ\n1 กลับด้านเสื้อก่อนซัก \n2 ใส่ถุงยืดอายุ ลดแรงปั่น ไม่อบผ้า\n3 ไม่ตากเสื้อยืดในที่แดดจัดเกินไป\n4 เสื้อสกรีนกลับเสื้อรีดเสื้อจากด้านในอย่าใช้อุณหภูมิสูงเดี๋ยวไหม้ ทำให้สกรีนเสียนะคะ\n5 ห้ามใช้น้ำยาปรับผ้านุ่มเด็ดขาดเป็นอันตรายต่อผ้า น้ำยาปรับผ้านุ่มจะกัดสีของผ้าค่ะ\n6 ห้ามใช้น้ำยาซักผ้าขาว ไฮเตอร์ ผงซักฟอก หรือน้ำยาซักผ้าสูตรเข้มข้นเด็ดขาด  แนะนำใช้น้ำยาซักผ้าเด็กค่า",
+    "shortDescription": "เสื้อทรงคลาสสิก ใส่สบาย แมตช์ง่ายได้ทุกวัน",
+    "description": "เสื้อทรงมินิมอลที่ตัดเย็บให้ใส่สบาย ทรงสวย ใส่ทำงานหรือใส่เที่ยวก็ได้ ผ้าเนื้อดีไม่บาง ไม่ต้องรีดบ่อย เหมาะกับสาวออฟฟิศและสายมินิมอลที่ชอบเสื้อผ้าเรียบง่ายแต่ดูดี แมตช์ได้กับกางเกงและกระโปรงแทบทุกแบบ",
     "colors": [
-      "Pink"
+      "ขาวงาช้าง",
+      "ดำ",
+      "เบจ"
     ],
     "sizes": [
-      "One Size"
+      "S",
+      "M",
+      "L"
     ],
-    "measurements": "อก46” ไหล่24” ยาว25” ต้นแขน18” แขนยาว19” ปลายแขน8”-10” ",
-    "fabric": "",
-    "stock": 3,
+    "measurements": "อก 34-38 นิ้ว\nยาว 24 นิ้ว",
+    "fabric": "ผ้าคอตตอนผสม เนื้อนุ่ม ระบายอากาศดี",
+    "stock": 15,
     "images": [
-      "/uploads/products/1782890640379-912537.JPG",
-      "/uploads/products/1782890640405-565987.JPG",
-      "/uploads/products/1782890640420-40088.jpg"
+      "/uploads/sample/1001-a.svg",
+      "/uploads/sample/1001-b.svg"
     ],
     "createdAt": "2026-06-30T09:00:00.000Z"
+  },
+  {
+    "id": "1002",
+    "name": "Soft Minimal Shirt",
+    "brand": "Uniqlo",
+    "category": "เสื้อ",
+    "categories": [
+      "เสื้อ",
+      "สินค้าแนะนำ",
+      "พร้อมส่ง",
+      "สินค้าใหม่",
+      "มือสอง",
+      "Sale"
+    ],
+    "price": 450,
+    "originalPrice": 590,
+    "status": "available",
+    "condition": "Like New",
+    "tags": [
+      "Best Seller",
+      "ส่งฟรี"
+    ],
+    "featured": true,
+    "published": true,
+    "shortDescription": "เชิ้ตทรงหลวม ใส่เท่ได้ทุกโอกาส",
+    "description": "เชิ้ตทรงหลวมสไตล์มินิมอล ใส่เดี่ยวๆ หรือคลุมทับก็สวย ผ้าเนื้อดีไม่ยับง่าย เหมาะกับลุคทำงานที่ต้องการความเรียบหรู หรือใส่เที่ยววันสบายๆ ก็ดูดีไม่แพ้กัน",
+    "colors": [
+      "ขาวงาช้าง",
+      "เทาอ่อน"
+    ],
+    "sizes": [
+      "Free Size"
+    ],
+    "measurements": "อก 36-40 นิ้ว\nยาว 26 นิ้ว",
+    "fabric": "ผ้าลินินผสมคอตตอน",
+    "stock": 20,
+    "images": [
+      "/uploads/sample/1002-a.svg",
+      "/uploads/sample/1002-b.svg"
+    ],
+    "createdAt": "2026-06-27T09:00:00.000Z"
+  },
+  {
+    "id": "1003",
+    "name": "Clean Fit Pants",
+    "brand": "",
+    "category": "กางเกง",
+    "categories": [
+      "กางเกง",
+      "พร้อมส่ง",
+      "สินค้าใหม่",
+      "มือหนึ่ง"
+    ],
+    "price": 550,
+    "originalPrice": "",
+    "status": "available",
+    "condition": "New",
+    "tags": [
+      "ส่งฟรี"
+    ],
+    "featured": false,
+    "published": true,
+    "shortDescription": "กางเกงทรงตรง เข้ารูปพอดี ใส่ได้ทุกวัน",
+    "description": "กางเกงขายาวทรงตรง เอวปรับกระชับสบาย ใส่ทำงานหรือลำลองก็เข้าได้ ผ้ามีน้ำหนักพอดี ไม่ยับง่าย ไม่บางเกินไป เหมาะกับคนที่ชอบลุคเรียบร้อยแต่ดูมีสไตล์",
+    "colors": [
+      "ดำ",
+      "น้ำตาลอ่อน"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "measurements": "เอว 26-32 นิ้ว\nสะโพก 36-40 นิ้ว\nยาว 38 นิ้ว",
+    "fabric": "ผ้าโพลีเอสเตอร์ผสม ยืดหยุ่นเล็กน้อย",
+    "stock": 12,
+    "images": [
+      "/uploads/sample/1003-a.svg",
+      "/uploads/sample/1003-b.svg"
+    ],
+    "createdAt": "2026-06-24T09:00:00.000Z"
+  },
+  {
+    "id": "1004",
+    "name": "Ivory Mood Dress",
+    "brand": "",
+    "category": "เดรส",
+    "categories": [
+      "เดรส",
+      "สินค้าแนะนำ",
+      "สินค้าใหม่",
+      "มือหนึ่ง"
+    ],
+    "price": 690,
+    "originalPrice": "",
+    "status": "comingsoon",
+    "condition": "New",
+    "tags": [
+      "New"
+    ],
+    "featured": true,
+    "published": true,
+    "shortDescription": "เดรสยาวโทนไอวอรี่ ใส่แล้วดูหรูขึ้นทันที",
+    "description": "เดรสทรงยาวสีไอวอรี่ ทรงสวยคุมเรือน ใส่ออกงานหรือแต่งตัวไปเที่ยวก็ดูดี ผ้าทิ้งตัวสวย ไม่ต้องมีอะไรเยอะก็ดูแพงได้ในตัวเดียว เหมาะกับสาวที่ชอบความเรียบหรู",
+    "colors": [
+      "ขาวงาช้าง"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "measurements": "อก 34-38 นิ้ว\nเอว 26-30 นิ้ว\nสะโพก 36-40 นิ้ว\nยาว 52 นิ้ว",
+    "fabric": "ผ้าซาตินเนื้อนุ่ม ทิ้งตัว",
+    "stock": 8,
+    "images": [
+      "/uploads/sample/1004-a.svg",
+      "/uploads/sample/1004-b.svg"
+    ],
+    "createdAt": "2026-06-20T09:00:00.000Z"
+  },
+  {
+    "id": "1005",
+    "name": "Classic Everyday Set",
+    "brand": "",
+    "category": "เซ็ต",
+    "categories": [
+      "เซ็ต",
+      "สินค้าแนะนำ",
+      "พร้อมส่ง",
+      "สินค้าใหม่",
+      "มือหนึ่ง"
+    ],
+    "price": 890,
+    "originalPrice": "",
+    "status": "available",
+    "condition": "New",
+    "tags": [
+      "Best Seller",
+      "ส่งฟรี"
+    ],
+    "featured": true,
+    "published": true,
+    "shortDescription": "เซ็ตเสื้อ+กางเกง แมตช์มาให้พร้อมใส่",
+    "description": "เซ็ตเสื้อและกางเกงโทนสีเดียวกัน ใส่คู่กันแล้วดูเป็นชุด หรือแยกใส่ก็ได้เหมือนกัน เหมาะกับสายที่ไม่อยากคิดเยอะตอนแต่งตัว หยิบมาใส่ก็ดูดีทันที",
+    "colors": [
+      "เบจ",
+      "ดำ"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "measurements": "อก 34-38 นิ้ว\nเอว 26-30 นิ้ว",
+    "fabric": "ผ้าคอตตอนผสมลินิน",
+    "stock": 10,
+    "images": [
+      "/uploads/sample/1005-a.svg",
+      "/uploads/sample/1005-b.svg"
+    ],
+    "createdAt": "2026-06-15T09:00:00.000Z"
+  },
+  {
+    "id": "1006",
+    "name": "Linen Breeze Skirt",
+    "brand": "",
+    "category": "กระโปรง",
+    "categories": [
+      "กระโปรง",
+      "พร้อมส่ง",
+      "มือหนึ่ง"
+    ],
+    "price": 490,
+    "originalPrice": "",
+    "status": "available",
+    "condition": "New",
+    "tags": [
+      "ส่งฟรี"
+    ],
+    "featured": false,
+    "published": true,
+    "shortDescription": "กระโปรงผ้าลินิน ทรงบาน ใส่สบายหน้าร้อน",
+    "description": "กระโปรงผ้าลินินทรงบานเล็กน้อย ใส่สบาย ระบายอากาศดี เหมาะกับหน้าร้อนหรือใส่เที่ยวทะเล แมตช์กับเสื้อครอปหรือเสื้อยืดก็สวย",
+    "colors": [
+      "ขาวงาช้าง",
+      "น้ำตาลอ่อน"
+    ],
+    "sizes": [
+      "Free Size"
+    ],
+    "measurements": "เอว 26-30 นิ้ว\nยาว 30 นิ้ว",
+    "fabric": "ผ้าลินิน 100%",
+    "stock": 18,
+    "images": [
+      "/uploads/sample/1006-a.svg",
+      "/uploads/sample/1006-b.svg"
+    ],
+    "createdAt": "2026-06-08T09:00:00.000Z"
+  },
+  {
+    "id": "1007",
+    "name": "Structured Tote Bag",
+    "brand": "",
+    "category": "กระเป๋า",
+    "categories": [
+      "กระเป๋า",
+      "พร้อมส่ง",
+      "มือหนึ่ง"
+    ],
+    "price": 650,
+    "originalPrice": "",
+    "status": "reserved",
+    "condition": "New",
+    "tags": [
+      "New",
+      "ส่งฟรี"
+    ],
+    "featured": false,
+    "published": true,
+    "shortDescription": "กระเป๋าโท้ททรงสวย จุของได้เยอะ",
+    "description": "กระเป๋าโท้ททรงสี่เหลี่ยม ทรงตั้งสวยไม่ยวบ จุของได้เยอะ ใช้ได้ทั้งไปทำงานและไปเที่ยว วัสดุแข็งแรง ทนทาน ใช้งานได้นาน",
+    "colors": [
+      "ดำ",
+      "เบจ"
+    ],
+    "sizes": [
+      "Free Size"
+    ],
+    "measurements": "ยาว กว้าง 35 x สูง 28 ซม.",
+    "fabric": "หนัง PU เกรดพรีเมียม",
+    "stock": 6,
+    "images": [
+      "/uploads/sample/1007-a.svg",
+      "/uploads/sample/1007-b.svg"
+    ],
+    "createdAt": "2026-05-30T09:00:00.000Z"
+  },
+  {
+    "id": "1008",
+    "name": "Charcoal Tailored Trousers",
+    "brand": "",
+    "category": "กางเกง",
+    "categories": [
+      "กางเกง",
+      "มือหนึ่ง"
+    ],
+    "price": 590,
+    "originalPrice": "",
+    "status": "soldout",
+    "condition": "New",
+    "tags": [],
+    "featured": false,
+    "published": true,
+    "shortDescription": "กางเกงทรงสแล็ค สีชาร์โคล ใส่ทำงานสวยมาก",
+    "description": "กางเกงทรงสแล็คสีชาร์โคล ตัดเย็บประณีต ใส่ทำงานดูโปรทันที ทรงขาตรงช่วยพรางขาให้ดูเรียวยาว",
+    "colors": [
+      "ชาร์โคล"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "measurements": "เอว 26-32 นิ้ว\nสะโพก 36-40 นิ้ว\nยาว 39 นิ้ว",
+    "fabric": "ผ้าวูลผสมโพลีเอสเตอร์",
+    "stock": 0,
+    "images": [
+      "/uploads/sample/1008-a.svg",
+      "/uploads/sample/1008-b.svg"
+    ],
+    "createdAt": "2026-05-20T09:00:00.000Z"
+  },
+  {
+    "id": "1009",
+    "name": "Ivory Wrap Blouse",
+    "brand": "Zara",
+    "category": "เสื้อ",
+    "categories": [
+      "เสื้อ",
+      "พร้อมส่ง",
+      "มือสอง"
+    ],
+    "price": 420,
+    "originalPrice": "",
+    "status": "available",
+    "condition": "Good",
+    "tags": [
+      "ส่งฟรี"
+    ],
+    "featured": false,
+    "published": true,
+    "shortDescription": "เสื้อทรงคล้องผูก โทนไอวอรี่ ดูหรูเรียบ",
+    "description": "เสื้อทรงคล้องผูกด้านหน้า โทนสีไอวอรี่ที่ใส่แล้วดูสะอาดตา ผ้าเนื้อดีไม่โปร่ง ใส่ทำงานหรือไปพบลูกค้าก็ดูน่าเชื่อถือ",
+    "colors": [
+      "ขาวงาช้าง"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "measurements": "อก 34-38 นิ้ว\nยาว 25 นิ้ว",
+    "fabric": "ผ้าคอตตอนเนื้อเนียน",
+    "stock": 9,
+    "images": [
+      "/uploads/sample/1009-a.svg",
+      "/uploads/sample/1009-b.svg"
+    ],
+    "createdAt": "2026-05-10T09:00:00.000Z"
+  },
+  {
+    "id": "1010",
+    "name": "Beige Midi Dress",
+    "brand": "",
+    "category": "เดรส",
+    "categories": [
+      "เดรส",
+      "สินค้าแนะนำ",
+      "พร้อมส่ง",
+      "มือหนึ่ง",
+      "Sale"
+    ],
+    "price": 720,
+    "originalPrice": 890,
+    "status": "available",
+    "condition": "New",
+    "tags": [
+      "Best Seller",
+      "ส่งฟรี"
+    ],
+    "featured": true,
+    "published": true,
+    "shortDescription": "เดรสสั้นกลาง โทนเบจ ใส่ง่ายดูดีทุกโอกาส",
+    "description": "เดรสความยาวกลางน่อง โทนสีเบจที่เข้ากับทุกสีผิว ทรงสวยใส่แล้วดูเรียวยาว เหมาะกับงานเลี้ยง นัดเพื่อน หรือถ่ายรูปสวยๆ ก็ได้หมด",
+    "colors": [
+      "เบจ"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "measurements": "อก 34-38 นิ้ว\nเอว 26-30 นิ้ว\nสะโพก 36-40 นิ้ว\nยาว 40 นิ้ว",
+    "fabric": "ผ้าคอตตอนผสมสแปนเดกซ์",
+    "stock": 11,
+    "images": [
+      "/uploads/sample/1010-a.svg",
+      "/uploads/sample/1010-b.svg"
+    ],
+    "createdAt": "2026-05-01T09:00:00.000Z"
   }
 ]

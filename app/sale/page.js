@@ -8,11 +8,18 @@ export const metadata = {
   title: "ลดราคาพิเศษ | Meijiiya",
 };
 
-export default function SalePage() {
+export default async function SalePage() {
   const settings = getSettings();
-  const products = getPublishedProducts().filter(
-    (p) => (p.originalPrice && Number(p.originalPrice) > Number(p.price)) || p.categories?.includes(CATEGORY_SALE)
-  );
+
+  let products = [];
+  try {
+    const all = await getPublishedProducts();
+    products = all.filter(
+      (p) => (p.originalPrice && Number(p.originalPrice) > Number(p.price)) || p.categories?.includes(CATEGORY_SALE)
+    );
+  } catch (err) {
+    console.error("[SalePage] getPublishedProducts failed:", err);
+  }
 
   return (
     <SimpleProductGrid

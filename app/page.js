@@ -19,9 +19,17 @@ const TRUST_ITEMS = [
   { title: "ตรวจสอบสินค้าก่อนส่ง", desc: "เช็กสภาพและความสะอาดก่อนแพ็กทุกครั้ง" },
 ];
 
-export default function HomePage() {
-  const products = getPublishedProducts();
+export default async function HomePage() {
   const settings = getSettings();
+
+  let products = [];
+  let loadError = null;
+  try {
+    products = await getPublishedProducts();
+  } catch (err) {
+    console.error("[HomePage] getPublishedProducts failed:", err);
+    loadError = "ไม่สามารถโหลดข้อมูลสินค้าได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง";
+  }
 
   const newArrivals = [...products]
     .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
@@ -59,6 +67,11 @@ export default function HomePage() {
       {/* Notice */}
       <section className="container-brand mt-8">
         <NoticeBox text="เว็บไซต์นี้ไม่มีระบบสั่งซื้อและชำระเงินอัตโนมัติ ลูกค้าสามารถแคปรูปสินค้าที่ต้องการ แล้วส่งมาทาง LINE เพื่อให้ร้านเช็กสินค้าและคอนเฟิร์มยอดค่ะ" />
+        {loadError && (
+          <div className="mt-4 bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl2">
+            {loadError}
+          </div>
+        )}
       </section>
 
       {/* Category Menu */}
