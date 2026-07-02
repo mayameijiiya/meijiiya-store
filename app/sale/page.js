@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 export default async function SalePage() {
-  const settings = getSettings();
+  const settings = await getSettings();
 
   let products = [];
   try {

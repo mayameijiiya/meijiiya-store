@@ -8,16 +8,16 @@
   "_comment_line": "แก้ลิงก์ LINE Official Account ของร้านตรงนี้ (ค่าเริ่มต้นคือลิงก์จริงของ Meijiiya แล้ว)",
   "lineLink": "https://lin.ee/wDd89mZ",
 
-  "_comment_socials": "ช่องทางอื่นยังเป็น placeholder ให้แก้เป็นลิงก์จริงของร้านทีหลัง (แก้ได้ที่หน้า Admin > ตั้งค่าร้าน หรือแก้ไฟล์นี้ตรงๆ)",
+  "_comment_socials": "ช่องทางอื่นยังว่างอยู่ ให้แก้เป็นลิงก์จริงของร้านที่หน้า Admin > ตั้งค่าร้าน (บันทึกแล้วจะเก็บลง Supabase โดยตรง) — ปล่อยว่างไว้ได้ ฝั่งเว็บจะไม่แสดงช่องทางที่ยังว่างอยู่ให้ลูกค้าเห็น",
   "socials": {
-    "tiktok": "https://www.tiktok.com/@yourusername",
-    "facebook": "https://www.facebook.com/yourpage",
-    "instagram": "https://www.instagram.com/yourusername",
-    "shopee": "https://shopee.co.th/yourshop",
-    "lemon8": "https://www.lemon8-app.com/yourusername",
-    "youtube": "https://www.youtube.com/@yourchannel",
-    "email": "yourbrand@email.com",
-    "phone": "08X-XXX-XXXX"
+    "tiktok": "",
+    "facebook": "",
+    "instagram": "",
+    "shopee": "",
+    "lemon8": "",
+    "youtube": "",
+    "email": "",
+    "phone": ""
   },
 
   "shippingText": "จัดส่งผ่านขนส่ง Shopee ส่งฟรีทุกออเดอร์ ไม่มีขั้นต่ำ",

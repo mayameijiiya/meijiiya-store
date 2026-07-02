@@ -3,11 +3,35 @@
 เว็บไซต์แสดงสินค้าแฟชั่นสไตล์มินิมอล ลูกค้าดูสินค้า แคปรูป แล้วสั่งซื้อผ่าน LINE (ไม่มีตะกร้าสินค้า ไม่มีระบบชำระเงินในเว็บ)
 เจ้าของร้านเพิ่ม/แก้ไข/ลบสินค้าและอัปโหลดรูปเองได้จากหน้า Admin Dashboard
 
-สร้างด้วย Next.js 14 (App Router) + Tailwind CSS **ข้อมูลสินค้าเก็บใน Supabase Postgres** (ตาราง `products`) ส่วนการตั้งค่าร้านยังเก็บเป็นไฟล์ `data/settings.json` เหมือนเดิม
+สร้างด้วย Next.js 14 (App Router) + Tailwind CSS **ข้อมูลสินค้าและการตั้งค่าร้านเก็บใน Supabase Postgres ทั้งคู่** (ตาราง `products` และ `settings`)
 
 ---
 
-## 0.4) แก้ไขล่าสุด: หน้าเว็บจริงไม่แสดงสินค้าใหม่ (ทั้งที่บันทึกเข้า Supabase สำเร็จแล้ว)
+## 0.5) แก้ไขล่าสุด: ย้ายระบบตั้งค่าร้าน (Contact & Social Links) ไปใช้ Supabase
+
+**สาเหตุ:** หน้า Admin > ตั้งค่าร้าน ยังอ่าน/เขียนไฟล์ `data/settings.json` อยู่ ซึ่งใช้ไม่ได้บน Vercel (read-only filesystem) ทำให้กดบันทึกตั้งค่าไม่สำเร็จจริง (เหมือนปัญหาเดียวกับสินค้าในรอบก่อนๆ)
+
+**สิ่งที่แก้:**
+
+| ไฟล์ | การเปลี่ยนแปลง |
+|---|---|
+| `supabase/settings-schema.sql` (ใหม่) | SQL สร้างตาราง `settings` (เก็บเป็นแถวเดียว id = `'main'`) — **รัน manual ครั้งเดียวใน Supabase SQL Editor** เหมือน `schema.sql`/`storage.sql` |
+| `lib/supabase.js` | เพิ่ม export `SETTINGS_TABLE`, `SETTINGS_ROW_ID` |
+| `lib/db.js` | เขียน `getSettings()`/`updateSettings()` ใหม่เป็น `async` คุยกับ Supabase table `settings` โดยตรง (UPSERT ทับทั้งแถวตอนบันทึก) ถ้ายังไม่เคยมีแถวเลย (ใช้งานครั้งแรก) จะ seed แถวเริ่มต้นให้อัตโนมัติจากค่าใน `data/settings.json` — ไฟล์ JSON เดิม "ไม่ถูกเขียน" บน production อีกต่อไป (เหมือนกติกาของ products) |
+| `app/api/settings/route.js` | เพิ่ม `await` + `try/catch` คืน error เป็น JSON 500 ที่อ่านรู้เรื่อง |
+| `app/api/admin/login/route.js` | เพิ่ม `await getSettings()` (เดิมเรียกแบบ sync ซึ่งพังเพราะฟังก์ชันเป็น async แล้ว) |
+| `app/layout.js`, `app/page.js`, `app/products/page.js`, `app/products/[id]/page.js`, `app/new-arrivals/page.js`, `app/recommended/page.js`, `app/sale/page.js`, `app/contact/page.js`, `app/how-to-order/page.js` | เพิ่ม `await getSettings()` ทุกจุด (`app/contact/page.js`, `app/how-to-order/page.js` แปลงจาก sync function เป็น `async` ด้วย) — `app/layout.js` มี fallback เผื่อ Supabase ล่มชั่วคราวไม่ให้ทั้งเว็บพัง |
+| `app/admin/settings/page.js` | เพิ่มข้อความสำเร็จเป็นสีเขียว / ข้อความ error เป็นสีแดง (เดิมเป็นสีดำทั้งคู่) + แสดง error message จริงจาก server แทนข้อความทั่วไป — โครงสร้างหน้าและฟิลด์ทั้งหมดเหมือนเดิมทุกอย่าง |
+| `data/settings.json` | ล้างค่า placeholder ตัวอย่าง (เช่น `yourusername`, `yourbrand@email.com`, `08X-XXX-XXXX`) ให้เป็นค่าว่าง — ไฟล์นี้ใช้เป็น "ค่าเริ่มต้นตอน seed ครั้งแรกเข้า Supabase" เท่านั้น ไม่ใช่ fallback ถาวรอีกต่อไป |
+
+หน้าเว็บ (Footer/Contact) กรองค่า placeholder ที่ยังไม่ได้แก้ไม่ให้แสดงผลอยู่แล้วตั้งแต่รอบก่อน (ดูหัวข้อ 0.4 ด้านล่าง) — ตอนนี้ค่าที่กรองออกจะไม่ปรากฏใน Supabase ตั้งแต่ต้นด้วย
+
+### ต้องทำก่อนใช้งานจริง (ทำครั้งเดียว)
+รัน `supabase/settings-schema.sql` ใน Supabase SQL Editor — หลังจากนั้นเปิดหน้า Admin > ตั้งค่าร้าน ครั้งแรก ระบบจะสร้างแถวการตั้งค่าเริ่มต้นให้อัตโนมัติ
+
+---
+
+## 0.4) หน้าเว็บจริงไม่แสดงสินค้าใหม่ (ทั้งที่บันทึกเข้า Supabase สำเร็จแล้ว)
 
 **สาเหตุ:** Next.js App Router มี "Data Cache" ที่แอบ cache ผลลัพธ์ของ `fetch()` ทุกตัวโดยอัตโนมัติ รวมถึง fetch ที่ `@supabase/supabase-js` เรียกใช้ภายในตอน query ตาราง `products` ด้วย แม้แต่ละหน้าจะมี `export const dynamic = "force-dynamic"` อยู่แล้วก็ตาม ทำให้บางครั้งหน้าเว็บยังแสดงข้อมูลชุดเก่าอยู่หลังเพิ่ม/แก้สินค้าใหม่
 

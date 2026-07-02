@@ -7,21 +7,21 @@ html {
 }
 
 body {
-  background-color: #F7F3EC;
-  color: #1C1C1C;
+  background-color: #F8F6F3;
+  color: #111111;
 }
 
-/* เส้นขอบบางๆ แบบแบรนด์ Meijiiya */
+/* เส้นขอบบางๆ แบบแบรนด์ Meijiiya — โทนเทากลางตาม spec ใหม่ (Shopee/Zara/COS) */
 .brand-border {
-  border: 1px solid #E5DED3;
+  border: 1px solid #E5E5E5;
 }
 
 .container-brand {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -32,23 +32,28 @@ body {
 }
 
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 bg-ink text-white px-6 py-3.5 text-sm tracking-wide2 uppercase transition-all duration-200 hover:bg-softblack active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 min-h-touch bg-ink text-white px-6 py-3.5 text-sm font-medium tracking-wide rounded-lg transition-all duration-200 hover:bg-black active:scale-[0.98];
 }
 
 .btn-outline {
-  @apply inline-flex items-center justify-center gap-2 bg-transparent text-ink border border-ink px-6 py-3.5 text-sm tracking-wide2 uppercase transition-all duration-200 hover:bg-ink hover:text-white active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 min-h-touch bg-transparent text-ink border border-ink px-6 py-3.5 text-sm font-medium tracking-wide rounded-lg transition-all duration-200 hover:bg-ink hover:text-white active:scale-[0.98];
 }
 
 .btn-gold-outline {
-  @apply inline-flex items-center justify-center gap-2 bg-transparent text-ink border border-gold px-6 py-3.5 text-sm tracking-wide2 uppercase transition-all duration-200 hover:bg-gold hover:text-white active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 min-h-touch bg-transparent text-ink border border-gold px-6 py-3.5 text-sm tracking-wide2 uppercase rounded-lg transition-all duration-200 hover:bg-gold hover:text-white active:scale-[0.98];
 }
 
 .btn-line {
-  @apply inline-flex items-center justify-center gap-2 bg-line text-white px-6 py-3.5 text-sm font-medium tracking-wide transition-all duration-200 shadow-soft hover:brightness-105 hover:shadow-md active:scale-[0.98] rounded-full;
+  @apply inline-flex items-center justify-center gap-2 min-h-touch bg-line text-white px-6 py-3.5 text-sm font-medium tracking-wide transition-all duration-200 shadow-soft hover:brightness-105 hover:shadow-md active:scale-[0.98] rounded-full;
+}
+
+/* ปุ่ม CTA สีแดง — ใช้เฉพาะจุดที่ต้องการดึงความสนใจเป็นพิเศษ (เช่น ปุ่มดูดีลลดราคา) ตาม spec */
+.btn-accent {
+  @apply inline-flex items-center justify-center gap-2 min-h-touch bg-salered text-white px-6 py-3.5 text-sm font-medium tracking-wide rounded-lg transition-all duration-200 hover:brightness-95 active:scale-[0.98];
 }
 
 .input-base {
-  @apply w-full brand-border bg-white px-4 py-2.5 text-sm text-ink transition-colors focus:outline-none focus:ring-1 focus:ring-gold focus:border-gold;
+  @apply w-full brand-border bg-white px-4 py-2.5 text-sm text-ink transition-colors rounded-lg focus:outline-none focus:ring-1 focus:ring-ink focus:border-ink;
 }
 
 .card-surface {
@@ -64,4 +69,68 @@ body {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ===================== Mobile-first shopping-app utilities (Shopee/Zara/COS/Apple) ===================== */
+
+/* Product Card — border เบา, radius 12-16px, shadow เบามาก, hover เฉพาะ desktop */
+.product-card {
+  @apply bg-white border border-bordergray rounded-2xl overflow-hidden shadow-card transition-shadow duration-300;
+}
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover {
+    @apply shadow-card-hover border-ink/20;
+  }
+}
+
+/* ป้ายลดราคา/สำคัญ สีแดง มุมขวาบนของรูปสินค้า */
+.badge-accent {
+  @apply text-[10px] sm:text-[11px] font-semibold tracking-wide px-2 py-1 bg-salered text-white rounded-md;
+}
+
+.badge-neutral {
+  @apply text-[10px] sm:text-[11px] font-medium tracking-wide px-2 py-1 bg-white/95 text-ink border border-bordergray rounded-md;
+}
+
+/* ซ่อน scrollbar แต่ยังเลื่อนแนวนอนได้ปกติ — ใช้กับแถบหมวดหมู่/thumbnail */
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Chip หมวดหมู่ทรงแคปซูล เลื่อนแนวนอนได้ */
+.category-pill {
+  @apply shrink-0 whitespace-nowrap px-4 py-2 min-h-touch flex items-center rounded-full text-[13px] font-medium border transition-colors;
+}
+.category-pill-active {
+  @apply bg-ink text-white border-ink;
+}
+.category-pill-inactive {
+  @apply bg-white text-ink/70 border-bordergray hover:border-ink/40;
+}
+
+/* Sticky bottom bar (Product Detail buy bar / mobile CTA) — รองรับ iPhone safe area */
+.sticky-bottom-bar {
+  @apply fixed bottom-0 inset-x-0 z-40 bg-white border-t border-bordergray shadow-sticky;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Mobile bottom navigation bar */
+.mobile-tab-bar {
+  @apply fixed bottom-0 inset-x-0 z-40 bg-white border-t border-bordergray flex md:hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mobile-tab-item {
+  @apply flex-1 flex flex-col items-center justify-center gap-0.5 py-2 min-h-touch text-[10px] font-medium text-ink/50 transition-colors;
+}
+.mobile-tab-item-active {
+  @apply text-ink;
+}
+
+/* Accordion (คำอธิบายสินค้า / Footer มือถือ) */
+.accordion-trigger {
+  @apply w-full flex items-center justify-between py-4 text-sm font-medium text-ink text-left min-h-touch;
 }

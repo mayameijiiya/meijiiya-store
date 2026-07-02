@@ -18,6 +18,7 @@ export default function AdminSettingsPage() {
   const [newPassword, setNewPassword] = useState("");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState(""); // "success" | "error"
 
   useEffect(() => {
     fetch("/api/settings")
@@ -56,21 +57,33 @@ export default function AdminSettingsPage() {
     e.preventDefault();
     setSaving(true);
     setMessage("");
+    setMessageType("");
     const payload = { ...settings };
     if (newPassword.trim()) {
       payload.adminPassword = newPassword.trim();
     }
-    const res = await fetch("/api/settings", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    setSaving(false);
-    if (res.ok) {
-      setMessage("บันทึกการตั้งค่าเรียบร้อยแล้ว");
-      setNewPassword("");
-    } else {
-      setMessage("บันทึกไม่สำเร็จ กรุณาลองใหม่");
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      setSaving(false);
+      if (res.ok) {
+        const updated = await res.json();
+        setSettings(updated);
+        setMessage("บันทึกการตั้งค่าเรียบร้อยแล้ว");
+        setMessageType("success");
+        setNewPassword("");
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setMessage(data.error || "บันทึกไม่สำเร็จ กรุณาลองใหม่");
+        setMessageType("error");
+      }
+    } catch (err) {
+      setSaving(false);
+      setMessage("บันทึกไม่สำเร็จ กรุณาลองใหม่ (เชื่อมต่อไม่สำเร็จ)");
+      setMessageType("error");
     }
   }
 
@@ -160,7 +173,11 @@ export default function AdminSettingsPage() {
           </Field>
         </SettingsSection>
 
-        {message && <p className="text-sm text-ink">{message}</p>}
+        {message && (
+          <p className={`text-sm ${messageType === "success" ? "text-green-600" : messageType === "error" ? "text-red-600" : "text-ink"}`}>
+            {message}
+          </p>
+        )}
 
         <div>
           <button type="submit" disabled={saving} className="btn-primary disabled:opacity-50">

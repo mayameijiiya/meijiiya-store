@@ -4,7 +4,7 @@ import { ADMIN_COOKIE_NAME } from "@/lib/auth";
 
 export async function POST(request) {
   const { password } = await request.json();
-  const settings = getSettings();
+  const settings = await getSettings();
 
   if (password && password === settings.adminPassword) {
     const res = NextResponse.json({ ok: true });
